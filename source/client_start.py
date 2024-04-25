@@ -59,7 +59,7 @@ remote_port=remote_message[remote_message.find('|')+1:]
 
 # print(ip,local_port,remote_port)
 
-os.system("start cmd.exe /c python talk.py "+local_port+' '+remote_port+' '+ip+' '+remote_name)
+os.system("start cmd.exe /c python source/talk.py "+local_port+' '+remote_port+' '+ip+' '+remote_name)
 
 print("[ok] 会话已建立")
 

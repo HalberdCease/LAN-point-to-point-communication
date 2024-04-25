@@ -19,7 +19,7 @@ def start_write():
     host_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host_socket.bind(("127.0.0.1", port))
     host_socket.listen(1)
-    os.system("start cmd.exe /c python writeboard.py "+str(port)+" "+remote_user)
+    os.system("start cmd.exe /c python source/writeboard.py "+str(port)+" "+remote_user)
     wbsc,address=host_socket.accept()
     host_socket.close()
     return wbsc
@@ -37,7 +37,7 @@ def remote():
             data=remote_recv.recv(1024)
         except :
             print("[close] 远程会话关闭")
-            os.system("start cmd.exe /c python err_close.py "+remote_user)
+            os.system("start cmd.exe /c python source/err_close.py "+remote_user)
             os._exit(1)
         message=data.decode()
         print(remote_user+":",message)
@@ -55,20 +55,8 @@ def local():
     try:
         remote_send.connect((ip,port))
     except:
-        print("[ERROR] 远程会话连接失败（写入），重新连接[1/3]")
-        try:
-            remote_send.connect((ip,port))
-        except:
-            print("[ERROR] 远程会话连接失败（写入），重新连接[2/3]")
-            try:
-                remote_send.connect((ip,port))
-            except:
-                print("[ERROR] 远程会话连接失败（写入），重新连接[3/3]")
-                try:
-                    remote_send.connect((ip,port))
-                except:
-                    print("[ERROR] 远程会话连接失败（写入），终止连接")
-                    os._exit(1)
+        print("[ERROR] 远程会话连接失败（写入）")
+        os._exit(1)
     
     print("[connect] 远程会话已连接（写入）")
 
@@ -87,7 +75,7 @@ def local():
         except :
             print("[close] 远程会话关闭")
             close=1
-            os.system("start cmd.exe /c python err_close.py "+remote_user)
+            os.system("start cmd.exe /c python source/err_close.py "+remote_user)
             os._exit(1)
 
 local_port=sys.argv[1]

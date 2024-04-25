@@ -17,6 +17,11 @@ def is_port_in_use(port):
                 return True
     return False
 
+if is_port_in_use(11451):
+    print("[ERROR] 监听系统已开启")
+    os.system('pause')
+    os._exit(1)
+
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind((get_ip('ens36'), 11451))
 
@@ -52,7 +57,7 @@ while(1):
         print("[close] 握手会话关闭")
         continue
 
-    os.system("start cmd.exe /c python talk.py "+local_port+' '+remote_port+' '+ip+' '+remote_name)
+    os.system("start cmd.exe /c python source/talk.py "+local_port+' '+remote_port+' '+ip+' '+remote_name)
     print("[ok] 会话已建立")
     client_socket.close()
     print("[close] 握手会话关闭")
