@@ -1,5 +1,5 @@
 import socket
-import psutil,os
+import psutil,os,time
 
 username="Halberd_Cease"
 
@@ -19,7 +19,7 @@ def is_port_in_use(port):
 
 if is_port_in_use(11451):
     print("[ERROR] 监听系统已开启")
-    os.system('pause')
+    time.sleep(3)
     os._exit(1)
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
